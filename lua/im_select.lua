@@ -46,6 +46,7 @@ local C = {
     set_default_events = { "VimEnter", "FocusGained", "InsertLeave", "CmdlineLeave" },
     -- Restore the previous used input method state when the following events are triggered
     set_previous_events = { "InsertEnter" },
+    set_latex_envnts = { "CursorMovedI " },
 
     keep_quiet_on_no_binary = false,
 
@@ -185,6 +186,20 @@ local function restore_previous_im()
     end
 end
 
+local math_env_pre = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
+local math_env = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
+local function latex_cursor_moved()
+    math_env = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
+    if (math_env ~= math_env_pre) then
+        math_env_pre = math_env
+        if (math_env == 1) then
+            restore_default_im();
+        else
+            restore_previous_im();
+        end
+    end
+end
+
 M.setup = function(opts)
     if not is_supported() then
         return
@@ -203,6 +218,13 @@ M.setup = function(opts)
     -- set autocmd
     local group_id = vim.api.nvim_create_augroup("im-select", { clear = true })
 
+    if #C.set_latex_envnts > 0 then
+        vim.api.nvim_create_autocmd(C.set_latex_envnts, {
+            pattern = "*.tex, *.bib",
+            callback = latex_cursor_moved,
+            group = group_id,
+        })
+    end
     if #C.set_previous_events > 0 then
         vim.api.nvim_create_autocmd(C.set_previous_events, {
             callback = restore_previous_im,
