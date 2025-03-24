@@ -46,7 +46,7 @@ local C = {
     set_default_events = { "VimEnter", "FocusGained", "InsertLeave", "CmdlineLeave" },
     -- Restore the previous used input method state when the following events are triggered
     set_previous_events = { "InsertEnter" },
-    set_latex_envnts = { "CursorMovedI " },
+    set_latex_envnts = { "CursorMovedI" },
 
     keep_quiet_on_no_binary = false,
 
