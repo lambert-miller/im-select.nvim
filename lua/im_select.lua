@@ -217,12 +217,14 @@ end
 local math_env_pre = false
 local math_env = false
 local function latex_cursor_moved()
-    math_env = in_mathzone()
+    math_env = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
     if (math_env ~= math_env_pre) then
         math_env_pre = math_env
         if (math_env == 1) then
+            print("math")
             restore_default_im();
         else
+            print("not math")
             restore_previous_im();
         end
     end
