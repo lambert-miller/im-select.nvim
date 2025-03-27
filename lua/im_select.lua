@@ -204,11 +204,11 @@ local function in_mathzone()
         print(node:type())
         if TEXT_NODES[node:type()] then
             print(node:type())
-            print("tre]ue")
+            print("not math")
             return false
         elseif MATH_NODES[node:type()] then
             print(node:type())
-            print("tre]ue")
+            print("math")
             return true
         end
         node = node:parent()
