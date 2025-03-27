@@ -221,10 +221,8 @@ local function latex_cursor_moved()
     if (math_env ~= math_env_pre) then
         math_env_pre = math_env
         if (math_env == 1) then
-            print("math")
             restore_default_im();
         else
-            print("not math")
             restore_previous_im();
         end
     end
