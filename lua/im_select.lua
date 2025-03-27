@@ -186,6 +186,18 @@ local function restore_previous_im()
     end
 end
 
+local MATH_NODES = {
+    displayed_equation = true,
+    inline_formula = true,
+    math_environment = true,
+}
+
+local TEXT_NODES = {
+    text_mode = true,
+    label_definition = true,
+    label_reference = true,
+}
+
 local function in_mathzone()
     local node = vim.treesitter.get_node({ ignore_injections = false })
     while node do
