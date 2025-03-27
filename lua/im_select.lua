@@ -203,8 +203,10 @@ local function in_mathzone()
     print(node:type())
     while node do
         if TEXT_NODES[node:type()] then
+            print(node:type())
             return false
         elseif MATH_NODES[node:type()] then
+            print(node:type())
             return true
         end
         node = node:parent()
