@@ -199,10 +199,10 @@ local function in_mathzone()
     return false
 end
 
-local math_env_pre = in_mathzone()
-local math_env = in_mathzone()
+local math_env_pre = false
+local math_env = false
 local function latex_cursor_moved()
-    math_env = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
+    math_env = in_mathzone()
     if (math_env ~= math_env_pre) then
         math_env_pre = math_env
         if (math_env == 1) then
