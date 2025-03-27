@@ -207,7 +207,6 @@ local function in_mathzone()
         end
         node = node:parent()
     end
-    print(node:type())
     return false
 end
 
