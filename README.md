@@ -35,6 +35,7 @@ Download URL: [im-select](https://github.com/daipeihust/im-select)
 
 You can check if the `im-select` executable can be properly accessed from Neovim/Vim by running the following command from your Command Prompt:
 
+
 ```bash
 # find the command
 $ where im-select.exe

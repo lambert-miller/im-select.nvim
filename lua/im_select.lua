@@ -186,8 +186,21 @@ local function restore_previous_im()
     end
 end
 
-local math_env_pre = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
-local math_env = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
+local function in_mathzone()
+    local node = vim.treesitter.get_node({ ignore_injections = false })
+    while node do
+        if TEXT_NODES[node:type()] then
+            return false
+        elseif MATH_NODES[node:type()] then
+            return true
+        end
+        node = node:parent()
+    end
+    return false
+end
+
+local math_env_pre = in_mathzone()
+local math_env = in_mathzone()
 local function latex_cursor_moved()
     math_env = vim.api.nvim_eval("vimtex#syntax#in_mathzone()")
     if (math_env ~= math_env_pre) then
