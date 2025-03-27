@@ -201,18 +201,13 @@ local TEXT_NODES = {
 local function in_mathzone()
     local node = vim.treesitter.get_node({ ignore_injections = false })
     while node do
-        print(node:type())
-        if TEXT_NODES[node:type()] then
-            print(node:type())
-            print("not math")
-            return false
-        elseif MATH_NODES[node:type()] then
-            print(node:type())
+        if MATH_NODES[node:type()] then
             print("math")
             return true
         end
         node = node:parent()
     end
+    print(node:type())
     return false
 end
 
